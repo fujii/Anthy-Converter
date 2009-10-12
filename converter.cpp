@@ -1,5 +1,6 @@
 #include <iostream>
 #include <anthy/anthy.h>
+#include <getopt.h>
 
 class exception : public std::exception {
 public:
@@ -41,10 +42,32 @@ void convert_lines(anthy_context_t ac)
     }
 }
 
+
 int
 main(int argc, char **argv)
 {
     int err;
+    int use_utf8 = 0;
+    int option_index = 0;
+
+    while (1) {
+      static struct option long_options[] = {
+	{"help", 0, 0, 'h'},
+	{"utf8", 0, 0, 'u'},
+	{0, 0, 0, 0}
+      };
+      char c = getopt_long(argc, argv, "hu", long_options, &option_index);
+      if (c == -1)
+	break;
+      switch (c) {
+      case 'h':
+	printf("Usage: anthy-converter [OPTION]\n");
+	return 0;
+      case 'u':
+	use_utf8 = 1;
+	break;
+      }
+    }
     anthy_context_t ac;
     err = anthy_init();
     if (err) {
@@ -53,7 +76,6 @@ main(int argc, char **argv)
     }
     err = anthy_set_personality("");
     ac = anthy_create_context();
-    bool use_utf8 = false;
     err = anthy_context_set_encoding(ac, use_utf8 ? ANTHY_UTF8_ENCODING : ANTHY_EUC_JP_ENCODING);
     convert_lines(ac);
     anthy_release_context(ac);
