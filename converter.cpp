@@ -77,6 +77,7 @@ main(int argc, char **argv)
     err = anthy_set_personality("");
     ac = anthy_create_context();
     err = anthy_context_set_encoding(ac, use_utf8 ? ANTHY_UTF8_ENCODING : ANTHY_EUC_JP_ENCODING);
+    err = anthy_set_reconversion_mode(ac, ANTHY_RECONVERT_DISABLE);
     convert_lines(ac);
     anthy_release_context(ac);
     anthy_quit();
