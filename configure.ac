@@ -9,6 +9,7 @@ AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([foreign])
 
 # Checks for programs.
+AC_PROG_LIBTOOL
 AC_PROG_CXX
 
 # Checks for libraries.
