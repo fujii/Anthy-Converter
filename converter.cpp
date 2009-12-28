@@ -61,7 +61,7 @@ main(int argc, char **argv)
 	break;
       switch (c) {
       case 'h':
-	printf("Usage: anthy-converter [OPTION]\n");
+	std::cout << "Usage: anthy-converter [OPTION]" << std::endl;
 	return 0;
       case 'u':
 	use_utf8 = 1;
